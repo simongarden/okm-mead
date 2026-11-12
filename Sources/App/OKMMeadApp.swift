@@ -1,3 +1,4 @@
+import OKMMead
 import SwiftUI
 
 @main
@@ -20,8 +21,7 @@ struct OKMMeadApp: App {
         if let check = ProcessInfo.processInfo.environment["OKMMEAD_IMAGE_CHECK"]?.split(separator: "|").map(String.init),
            check.count == 2 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                guard let document = NSDocumentController.shared.documents.first,
-                      let editor = (document.windowControllers.first?.window?.firstResponder as? MeadTextView)?.editor
+                guard let document = NSDocumentController.shared.documents.first, let editor = Self.lastEditor
                 else { print("IMAGE_CHECK 找不到文件"); return }
                 editor.insertImage(from: URL(fileURLWithPath: check[0]))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -34,10 +34,15 @@ struct OKMMeadApp: App {
         #endif
     }
 
+    #if DEBUG
+    /// 最近一次顯示的文件的編輯器（驗收用）。
+    @MainActor static weak var lastEditor: EditorController?
+    #endif
+
     var body: some Scene {
         DocumentGroup(newDocument: { MeadDocument() }) { file in
             DocumentView(
-                editor: file.document.editor,
+                editor: Self.track(file.document.editor),
                 documentName: file.fileURL?.deletingPathExtension().lastPathComponent ?? "未命名",
                 fileURL: file.fileURL
             )
@@ -46,6 +51,15 @@ struct OKMMeadApp: App {
         }
         .defaultSize(width: 1180, height: 820)
         .commands { MeadCommands() }
+    }
+}
+
+extension OKMMeadApp {
+    @MainActor static func track(_ editor: EditorController) -> EditorController {
+        #if DEBUG
+        lastEditor = editor
+        #endif
+        return editor
     }
 }
 

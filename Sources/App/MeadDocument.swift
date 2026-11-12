@@ -1,3 +1,4 @@
+import OKMMead
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -29,7 +30,10 @@ final class MeadDocument: ReferenceFileDocument, @unchecked Sendable {
 
     @MainActor var editor: EditorController {
         if let cachedEditor { return cachedEditor }
-        let created = EditorController(markdown: initialMarkdown, snapshot: snapshotBox)
+        EditorSetup.configure()
+        let created = EditorController(markdown: initialMarkdown)
+        // 內容一有變動，核心在這一輪事件處理結束時通知；存檔指令與自動儲存都是之後的事件，所以輪到它們時快照一定是最新的。
+        created.onMarkdownChange = { [snapshotBox] markdown in snapshotBox.value = markdown }
         cachedEditor = created
         return created
     }

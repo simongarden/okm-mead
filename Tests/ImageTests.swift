@@ -34,6 +34,13 @@ final class ImageTests: XCTestCase {
         FileManager.default.fileExists(atPath: folder.appendingPathComponent(path).path)
     }
 
+    /// 圖片在背景執行緒複製（文件可能在網路磁碟上）；等它出現，最多三秒。
+    private func appears(_ path: String) -> Bool {
+        let deadline = Date().addingTimeInterval(3)
+        while !exists(path), Date() < deadline { RunLoop.current.run(until: Date().addingTimeInterval(0.02)) }
+        return exists(path)
+    }
+
     func testStandaloneImageSurvivesRoundTrip() {
         let source = "前言\n\n![流程 示意](md.img/flow.png)\n\n結尾\n"
         let text = MarkdownImporter.attributedString(from: source)
@@ -55,7 +62,7 @@ final class ImageTests: XCTestCase {
         let editor = EditorController(markdown: "內文\n")
         editor.fileURL = folder.appendingPathComponent("doc/文件.md")
         editor.insertImage(from: source)
-        XCTAssertTrue(exists("doc/md.img/照片-1.png"), "已存檔的文件應該立刻把圖片複製到 md.img")
+        XCTAssertTrue(appears("doc/md.img/照片-1.png"), "已存檔的文件應該隨即把圖片複製到 md.img")
         XCTAssertEqual(editor.markdown, "內文\n\n![照片 (1)](md.img/照片-1.png)\n")
         XCTAssertEqual(editor.imageURL(for: "md.img/照片-1.png")?.path, folder.appendingPathComponent("doc/md.img/照片-1.png").path)
     }
@@ -69,7 +76,7 @@ final class ImageTests: XCTestCase {
         XCTAssertFalse(exists("doc/md.img/a.png"))
 
         editor.fileURL = folder.appendingPathComponent("doc/文件.md")
-        XCTAssertTrue(exists("doc/md.img/a.png"), "存檔後才複製")
+        XCTAssertTrue(appears("doc/md.img/a.png"), "存檔後才複製")
         XCTAssertTrue(exists("來源/a.png"), "原始檔案留在原處")
     }
 
@@ -82,6 +89,7 @@ final class ImageTests: XCTestCase {
         editor.insertImage(from: blue)
         editor.insertImage(from: red)
         XCTAssertEqual(editor.markdown, "![a](md.img/a.png)\n\n![a](md.img/a-2.png)\n\n![a](md.img/a.png)\n")
+        XCTAssertTrue(appears("doc/md.img/a.png") && appears("doc/md.img/a-2.png"))
         XCTAssertTrue(FileManager.default.contentsEqual(atPath: folder.appendingPathComponent("doc/md.img/a.png").path, andPath: red.path))
         XCTAssertTrue(FileManager.default.contentsEqual(atPath: folder.appendingPathComponent("doc/md.img/a-2.png").path, andPath: blue.path))
     }
@@ -92,8 +100,8 @@ final class ImageTests: XCTestCase {
         editor.fileURL = folder.appendingPathComponent("舊/文件.md")
         editor.insertImage(from: source)
         editor.fileURL = folder.appendingPathComponent("新/文件.md")
-        XCTAssertTrue(exists("新/md.img/a.png"), "另存到別處時圖片要跟著過去")
-        XCTAssertTrue(exists("舊/md.img/a.png"))
+        XCTAssertTrue(appears("新/md.img/a.png"), "另存到別處時圖片要跟著過去")
+        XCTAssertTrue(appears("舊/md.img/a.png"))
     }
 
     func testExportEmbedsImages() throws {

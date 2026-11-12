@@ -6,3 +6,5 @@ xcuserdata/
 .impeccable/review/
 .impeccable/config.local.json
 scripts/release.local
+.build/
+.swiftpm/

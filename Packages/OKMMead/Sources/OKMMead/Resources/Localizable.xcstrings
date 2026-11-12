@@ -1,0 +1,1363 @@
+{
+  "sourceLanguage": "zh-Hant",
+  "strings": {
+    "": {
+      "shouldTranslate": false
+    },
+    "%lld": {
+      "shouldTranslate": false
+    },
+    "App 內缺少必要的檔案：%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A required file is missing from the app: %@"
+          }
+        }
+      }
+    },
+    "Markdown 原始格式": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown Source"
+          }
+        }
+      }
+    },
+    "example.com": {
+      "shouldTranslate": false
+    },
+    "「%@」沒有複製到文件旁邊的「%@」資料夾。請確認那個位置可以寫入。": {
+      "localizations": {
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "new",
+            "value": "「%1$@」沒有複製到文件旁邊的「%2$@」資料夾。請確認那個位置可以寫入。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” could not be copied to the “%2$@” folder next to the document. Make sure that location is writable."
+          }
+        }
+      }
+    },
+    "例如：是": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g. Yes"
+          }
+        }
+      }
+    },
+    "內文": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Body"
+          }
+        }
+      }
+    },
+    "共 %lld 頁": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld pages"
+          }
+        }
+      }
+    },
+    "分隔線": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divider"
+          }
+        }
+      }
+    },
+    "列印…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Print…"
+          }
+        }
+      }
+    },
+    "判斷": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decision"
+          }
+        }
+      }
+    },
+    "刪除": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
+          }
+        }
+      }
+    },
+    "刪除圖片": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Image"
+          }
+        }
+      }
+    },
+    "刪除流程圖": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Flowchart"
+          }
+        }
+      }
+    },
+    "刪除線": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Strikethrough"
+          }
+        }
+      }
+    },
+    "刪除線（⇧⌘X）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Strikethrough (⇧⌘X)"
+          }
+        }
+      }
+    },
+    "刪除表格": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Table"
+          }
+        }
+      }
+    },
+    "刪除這一列": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Row"
+          }
+        }
+      }
+    },
+    "刪除這一欄": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Column"
+          }
+        }
+      }
+    },
+    "刪除這個步驟": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this step"
+          }
+        }
+      }
+    },
+    "加一條連線": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Connection"
+          }
+        }
+      }
+    },
+    "加入或編輯連結（⌘K）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add or edit link (⌘K)"
+          }
+        }
+      }
+    },
+    "勾選": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check"
+          }
+        }
+      }
+    },
+    "取消": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "取消勾選": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uncheck"
+          }
+        }
+      }
+    },
+    "單頁": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Single Page"
+          }
+        }
+      }
+    },
+    "回到排版好的文件": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back to the formatted document"
+          }
+        }
+      }
+    },
+    "圖片": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image"
+          }
+        }
+      }
+    },
+    "圖片應該放在文件旁邊的「%@」資料夾裡。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The image should be in the “%@” folder next to the document."
+          }
+        }
+      }
+    },
+    "圖片：%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image: %@"
+          }
+        }
+      }
+    },
+    "圖表內容": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diagram Source"
+          }
+        }
+      }
+    },
+    "在上方插入一列": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Row Above"
+          }
+        }
+      }
+    },
+    "在下方插入一列": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Row Below"
+          }
+        }
+      }
+    },
+    "在右側插入一欄": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Column Right"
+          }
+        }
+      }
+    },
+    "在左側插入一欄": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Column Left"
+          }
+        }
+      }
+    },
+    "增加縮排": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Increase Indent"
+          }
+        }
+      }
+    },
+    "增加縮排（⌘]）：清單項目變成上一項的子項目": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Increase indent (⌘]): the list item becomes a sub-item of the one above"
+          }
+        }
+      }
+    },
+    "多頁": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grid"
+          }
+        }
+      }
+    },
+    "大標題": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Title"
+          }
+        }
+      }
+    },
+    "大綱": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outline"
+          }
+        }
+      }
+    },
+    "好": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "存成 PDF…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save as PDF…"
+          }
+        }
+      }
+    },
+    "完成": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        }
+      }
+    },
+    "小標題": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subheading"
+          }
+        }
+      }
+    },
+    "引言": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quote"
+          }
+        }
+      }
+    },
+    "形狀": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shape"
+          }
+        }
+      }
+    },
+    "形狀：%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shape: %@"
+          }
+        }
+      }
+    },
+    "待辦清單": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checklist"
+          }
+        }
+      }
+    },
+    "待辦清單：每個項目前面有可以勾選的方框": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checklist: each item has a box you can tick"
+          }
+        }
+      }
+    },
+    "打開": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open"
+          }
+        }
+      }
+    },
+    "打開來修正": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open to Fix"
+          }
+        }
+      }
+    },
+    "找不到圖片「%@」": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image “%@” not found"
+          }
+        }
+      }
+    },
+    "把段落的樣式設成「大標題」或「標題」，就會列在這裡，方便在長文件裡跳到各個段落。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paragraphs styled as Title or Heading are listed here so you can jump around a long document."
+          }
+        }
+      }
+    },
+    "按兩下可以編輯": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Double-click to edit"
+          }
+        }
+      }
+    },
+    "捨棄目前的圖表內容，從三個步驟的範本開始": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discard the current diagram and start from a three-step template"
+          }
+        }
+      }
+    },
+    "排列方式": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Layout"
+          }
+        }
+      }
+    },
+    "接到": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connects to"
+          }
+        }
+      }
+    },
+    "插入": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert"
+          }
+        }
+      }
+    },
+    "插入分隔線": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Divider"
+          }
+        }
+      }
+    },
+    "插入圖片": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Image"
+          }
+        }
+      }
+    },
+    "插入流程圖": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Flowchart"
+          }
+        }
+      }
+    },
+    "插入表格": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insert Table"
+          }
+        }
+      }
+    },
+    "改用步驟重新製作": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rebuild with Steps"
+          }
+        }
+      }
+    },
+    "文件內容": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Document content"
+          }
+        }
+      }
+    },
+    "文件標題": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Document Title"
+          }
+        }
+      }
+    },
+    "斜體": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Italic"
+          }
+        }
+      }
+    },
+    "斜體（⌘I）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Italic (⌘I)"
+          }
+        }
+      }
+    },
+    "新增一列": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Row"
+          }
+        }
+      }
+    },
+    "新增一欄": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Column"
+          }
+        }
+      }
+    },
+    "新增步驟": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Step"
+          }
+        }
+      }
+    },
+    "方向": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direction"
+          }
+        }
+      }
+    },
+    "更改樣式": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change Style"
+          }
+        }
+      }
+    },
+    "更改這一段的樣式": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change this paragraph’s style"
+          }
+        }
+      }
+    },
+    "未命名": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Untitled"
+          }
+        }
+      }
+    },
+    "標題": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heading"
+          }
+        }
+      }
+    },
+    "欄位名稱": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Column Name"
+          }
+        }
+      }
+    },
+    "步驟": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step"
+          }
+        }
+      }
+    },
+    "步驟名稱": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step name"
+          }
+        }
+      }
+    },
+    "段落樣式": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paragraph Style"
+          }
+        }
+      }
+    },
+    "流程圖": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flowchart"
+          }
+        }
+      }
+    },
+    "流程圖的內容無法繪製": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The flowchart could not be drawn"
+          }
+        }
+      }
+    },
+    "流程圖預覽": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flowchart preview"
+          }
+        }
+      }
+    },
+    "減少縮排": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decrease Indent"
+          }
+        }
+      }
+    },
+    "減少縮排（⌘[）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decrease indent (⌘[)"
+          }
+        }
+      }
+    },
+    "無法列印": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to Print"
+          }
+        }
+      }
+    },
+    "無法複製圖片": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to Copy Image"
+          }
+        }
+      }
+    },
+    "無法轉成 PDF": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to Export PDF"
+          }
+        }
+      }
+    },
+    "無法預覽列印": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to Preview"
+          }
+        }
+      }
+    },
+    "無法顯示預覽。請關閉後再試一次。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The preview can’t be shown. Close it and try again."
+          }
+        }
+      }
+    },
+    "由上到下": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top to Bottom"
+          }
+        }
+      }
+    },
+    "由左到右": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Left to Right"
+          }
+        }
+      }
+    },
+    "留空會直接顯示網址": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave empty to show the address"
+          }
+        }
+      }
+    },
+    "移除這條連線": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove this connection"
+          }
+        }
+      }
+    },
+    "移除連結": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove Link"
+          }
+        }
+      }
+    },
+    "程式碼": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code"
+          }
+        }
+      }
+    },
+    "第 %lld 列第 %lld 欄": {
+      "localizations": {
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "new",
+            "value": "第 %1$lld 列第 %2$lld 欄"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Row %1$lld, column %2$lld"
+          }
+        }
+      }
+    },
+    "第 %lld 欄的欄位名稱": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name of column %lld"
+          }
+        }
+      }
+    },
+    "第 %lld 頁": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Page %lld"
+          }
+        }
+      }
+    },
+    "第一個步驟": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First step"
+          }
+        }
+      }
+    },
+    "粗體": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bold"
+          }
+        }
+      }
+    },
+    "粗體（⌘B）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bold (⌘B)"
+          }
+        }
+      }
+    },
+    "系統沒有產生 PDF": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The system did not produce a PDF"
+          }
+        }
+      }
+    },
+    "結束": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End"
+          }
+        }
+      }
+    },
+    "網址": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Address"
+          }
+        }
+      }
+    },
+    "線上的文字": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Label on the line"
+          }
+        }
+      }
+    },
+    "編號清單": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Numbered List"
+          }
+        }
+      }
+    },
+    "編輯原始格式": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Source"
+          }
+        }
+      }
+    },
+    "編輯流程圖": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Flowchart"
+          }
+        }
+      }
+    },
+    "編輯流程圖…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Flowchart…"
+          }
+        }
+      }
+    },
+    "編輯表格": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Table"
+          }
+        }
+      }
+    },
+    "表格": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Table"
+          }
+        }
+      }
+    },
+    "表格，%lld 列 %lld 欄": {
+      "localizations": {
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "new",
+            "value": "表格，%1$lld 列 %2$lld 欄"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Table, %1$lld rows, %2$lld columns"
+          }
+        }
+      }
+    },
+    "請再試一次。（%@）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please try again. (%@)"
+          }
+        }
+      }
+    },
+    "請檢查圖表內容的寫法。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the diagram source."
+          }
+        }
+      }
+    },
+    "請確認儲存位置可以寫入後再試一次。（%@）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make sure the destination is writable and try again. (%@)"
+          }
+        }
+      }
+    },
+    "請確認印表機設定後再試一次。（%@）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the printer settings and try again. (%@)"
+          }
+        }
+      }
+    },
+    "請確認每個步驟都有名稱，連線也都接到存在的步驟。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make sure every step has a name and every connection leads to an existing step."
+          }
+        }
+      }
+    },
+    "輸入": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Typing"
+          }
+        }
+      }
+    },
+    "轉成 PDF": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export PDF"
+          }
+        }
+      }
+    },
+    "這張圖表用了步驟編輯器不支援的寫法，所以直接顯示它的文字內容。修改後右邊會更新預覽。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This diagram uses syntax the step editor doesn’t support, so its source is shown instead. The preview on the right updates as you edit."
+          }
+        }
+      }
+    },
+    "這張流程圖的內容無法顯示": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This flowchart can’t be displayed"
+          }
+        }
+      }
+    },
+    "連結": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link"
+          }
+        }
+      }
+    },
+    "選擇要放進文件的圖片": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose images to add to the document"
+          }
+        }
+      }
+    },
+    "開始": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
+          }
+        }
+      }
+    },
+    "開始輸入…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start typing…"
+          }
+        }
+      }
+    },
+    "開始／結束": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start / End"
+          }
+        }
+      }
+    },
+    "關閉": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        }
+      }
+    },
+    "雙頁": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Two Pages"
+          }
+        }
+      }
+    },
+    "項目清單": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bulleted List"
+          }
+        }
+      }
+    },
+    "預覽列印": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Print Preview"
+          }
+        }
+      }
+    },
+    "預覽列印：先看分頁後的樣子，再列印或存成 PDF": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Print preview: check the pagination before printing or saving as PDF"
+          }
+        }
+      }
+    },
+    "預覽無法顯示": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preview unavailable"
+          }
+        }
+      }
+    },
+    "顯示 Markdown 原始格式": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show Markdown source"
+          }
+        }
+      }
+    },
+    "顯示文字": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text"
+          }
+        }
+      }
+    },
+    "（未命名步驟）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "(Unnamed step)"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

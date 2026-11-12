@@ -17,9 +17,9 @@ settings:
     ONLY_ACTIVE_ARCH[config=Debug]: YES
 
 packages:
-  swift-markdown:
-    url: https://github.com/swiftlang/swift-markdown
-    from: 0.6.0
+  # 編輯核心：這個儲存庫內的獨立套件，OKM Mimir 也使用同一份。它連帶引入 swift-markdown（精確釘選）。
+  OKMMead:
+    path: Packages/OKMMead
   Sparkle:
     url: https://github.com/sparkle-project/Sparkle
     from: "2.10.0"
@@ -37,8 +37,7 @@ targets:
       - path: TRADEMARKS.md
         buildPhase: resources
     dependencies:
-      - package: swift-markdown
-        product: Markdown
+      - package: OKMMead
       - package: Sparkle
     settings:
       base:
@@ -46,7 +45,8 @@ targets:
         # App 名稱（Finder、Dock、選單列）是「OKM Mead」；執行檔維持沒有空白的 OKM-Mead，模組名不能有符號。
         PRODUCT_NAME: OKM Mead
         EXECUTABLE_NAME: OKM-Mead
-        PRODUCT_MODULE_NAME: OKMMead
+        # 模組名 OKMMead 留給編輯核心的套件；App 殼層的模組另外取名。
+        PRODUCT_MODULE_NAME: OKMMeadApp
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         CODE_SIGN_STYLE: Automatic

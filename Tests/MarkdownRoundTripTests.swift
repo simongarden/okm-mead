@@ -1,5 +1,6 @@
 import XCTest
 @testable import OKMMead
+@testable import OKMMeadApp
 
 @MainActor
 final class MarkdownRoundTripTests: XCTestCase {
@@ -78,6 +79,28 @@ final class MarkdownRoundTripTests: XCTestCase {
         XCTAssertEqual(MarkdownImporter.attributedString(from: "hello\nworld").string, "hello world")
     }
 
+    func testDeepHeadingsKeepTheirLevel() {
+        let source = "# 一\n\n### 三\n\n#### 四\n\n##### 五\n\n###### 六\n\n內文\n"
+        XCTAssertEqual(roundTrip(source), source)
+    }
+
+    func testFrontMatterIsKeptVerbatim() {
+        let source = "---\ntitle: 請款流程\ntags: [財務, 流程]\n---\n\n# 標題\n\n內文\n"
+        XCTAssertEqual(roundTrip(source), source)
+        XCTAssertEqual(roundTrip("內文\n\n---\n\n結尾\n"), "內文\n\n---\n\n結尾\n")
+    }
+
+    func testTableCellsKeepInlineFormatting() {
+        let source = "| 項目 | 說明 |\n| --- | --- |\n| **重點** | 見 `README.md` 與[網站](https://example.com) |\n"
+        XCTAssertEqual(roundTrip(source), source)
+    }
+
+    func testReadOnlyPreviewKeepsContent() {
+        let preview = MeadPreviewView(markdown: "# 一\n\n## 二\n\n**粗體**文字\n", fileURL: nil)
+        XCTAssertEqual(preview.headingCount, 2)
+        XCTAssertTrue(preview.plainText.contains("粗體文字"))
+    }
+
     func testPastedMarkdownIsRecognized() {
         XCTAssertTrue(EditorController.looksLikeMarkdown("## 標題\n內容"))
         XCTAssertTrue(EditorController.looksLikeMarkdown("這是**重點**"))
@@ -112,6 +135,11 @@ final class FlowchartTests: XCTestCase {
 
 @MainActor
 final class PDFExportTests: XCTestCase {
+    override func setUp() async throws {
+        // Mermaid 由 App 提供給編輯核心。
+        EditorSetup.configure()
+    }
+
     func testExportWritesPaginatedPDFWithDiagram() async throws {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("okm-mead-test-\(UUID().uuidString).pdf")
         defer { try? FileManager.default.removeItem(at: url) }
