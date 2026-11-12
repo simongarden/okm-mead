@@ -29,6 +29,12 @@ struct MarkdownImporter {
             let style: BlockStyle = heading.level == 1 ? .title : heading.level == 2 ? .heading : .subheading
             appendParagraph(inlines(of: heading), style: style)
         case let paragraph as Paragraph:
+            // 獨立一段的圖片當成區塊顯示；夾在文字中間的圖片維持原樣保留。
+            if !quoted, paragraph.childCount == 1, let image = paragraph.child(at: 0) as? Markdown.Image,
+               let source = image.source, !source.isEmpty, (image.title ?? "").isEmpty {
+                appendAttachment(ImageAttachment(model: ImageModel(alt: image.plainText, path: source)))
+                return
+            }
             appendParagraph(inlines(of: paragraph), style: quoted ? .quote : .body)
         case let quote as BlockQuote:
             for child in quote.children { append(block: child, indent: indent, quoted: true) }

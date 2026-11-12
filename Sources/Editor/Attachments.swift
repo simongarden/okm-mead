@@ -154,6 +154,36 @@ final class DiagramAttachment: BlockAttachment {
     }
 }
 
+/// 圖片的說明文字與路徑（Markdown 的 `![說明](路徑)`）。
+@MainActor
+final class ImageModel: ObservableObject {
+    @Published var alt: String
+    @Published var path: String
+
+    init(alt: String, path: String) {
+        self.alt = alt
+        self.path = path
+    }
+
+    var fileName: String {
+        ((path.removingPercentEncoding ?? path) as NSString).lastPathComponent
+    }
+}
+
+final class ImageAttachment: BlockAttachment {
+    let model: ImageModel
+
+    init(model: ImageModel) {
+        self.model = model
+        super.init()
+    }
+
+    override func makeHostingController(editor: EditorController?) -> NSViewController {
+        guard let editor else { return NSViewController() }
+        return NSHostingController(rootView: ImageBlockView(model: model, attachment: self, editor: editor))
+    }
+}
+
 final class DividerAttachment: BlockAttachment {
     override func makeHostingController(editor: EditorController?) -> NSViewController {
         NSHostingController(rootView: DividerBlockView())

@@ -1,6 +1,6 @@
 # OKM Mead 原生版：開發須知
 
-產品定位讀 @PRODUCT.md，視覺規範讀 DESIGN.md，命名規範：顯示用 `OKM Mead`，bundle 與執行檔 `OKM-Mead`，必須小寫時用 `okm-mead`，模組與識別字 `OKMMead`（環境變數前綴 `OKMMEAD_`）。
+產品定位讀 @PRODUCT.md，視覺規範讀 DESIGN.md，命名規範：顯示用 `OKM Mead`（App 檔名也是 `OKM Mead.app`），執行檔與發行檔名 `OKM-Mead`，必須小寫時用 `okm-mead`，模組與識別字 `OKMMead`（環境變數前綴 `OKMMEAD_`）。
 
 ## 指令
 
@@ -17,6 +17,7 @@
 - 文件結尾的空段落沒有字元可掛屬性，它的樣式記在 `EditorController.trailingSemantic`。
 - 表格、流程圖、分隔線是 `BlockAttachment`，各自獨佔一個段落。區塊的高度由 TextKit 決定；內容變動後要呼叫 `relayoutBlock`。
 - 清單記號、待辦方框、引言線、程式碼底色由 `MeadLayoutFragment` 繪製，不是文字內容。
+- 圖片是 `ImageAttachment`，Markdown 記相對路徑 `md.img/檔名`。還沒存檔的文件先記在 `EditorController.pendingImages`，`fileURL` 一設定（存檔、另存）就由 `storeImages` 複製到文件旁邊；不覆寫既有檔案。
 - 任何新功能都要能無損存成 Markdown；存不進去的格式不做。新增匯出規則時在 `Tests/MarkdownRoundTripTests.swift` 補往返測試。
 
 ## 規則

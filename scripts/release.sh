@@ -104,7 +104,7 @@ xcodebuild test -project "OKM-Mead.xcodeproj" -scheme OKM-Mead -derivedDataPath 
 say "build $version ($build)"
 xcodebuild -project "OKM-Mead.xcodeproj" -scheme OKM-Mead -configuration Release -derivedDataPath build/DD \
   ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO clean build > "$out/build.log" 2>&1 || die "build 失敗（見 $out/build.log）"
-app="$out/OKM-Mead.app"; ditto build/DD/Build/Products/Release/OKM-Mead.app "$app"
+app="$out/OKM Mead.app"; ditto "build/DD/Build/Products/Release/OKM Mead.app" "$app"
 sparkle_bin=build/DD/SourcePackages/artifacts/sparkle/Sparkle/bin
 [[ -x $sparkle_bin/sign_update && -x $sparkle_bin/generate_keys ]] || die "找不到 Sparkle 工具（$sparkle_bin）"
 plist() { /usr/libexec/PlistBuddy -c "Print $1" "$app/Contents/Info.plist"; }
@@ -137,7 +137,7 @@ arch=x86_64-arm64
 # 2. Disk image: signed, notarized, stapled.
 dmg="$out/$prefix-$arch.dmg"
 say "dmg ${dmg:t}"
-root_dir="$out/dmg-root"; mkdir -p "$root_dir"; ditto "$app" "$root_dir/OKM-Mead.app"; ln -s /Applications "$root_dir/Applications"
+root_dir="$out/dmg-root"; mkdir -p "$root_dir"; ditto "$app" "$root_dir/OKM Mead.app"; ln -s /Applications "$root_dir/Applications"
 bad=$(cd "$root_dir" && find . -print | LC_ALL=C grep '[^ -~]' || true); [[ -z $bad ]] || die "非 ASCII 檔名：$bad"
 hdiutil create -volname "OKM Mead $version" -srcfolder "$root_dir" -fs HFS+ -format UDZO -imagekey zlib-level=9 -ov "$dmg" > "$out/hdiutil.log" 2>&1 || die "hdiutil 失敗"
 rm -rf "$root_dir"
@@ -159,7 +159,7 @@ spctl -a -vv -t open --context context:primary-signature "$dmg" > "$out/spctl-dm
 grep -q "Notarized Developer ID" "$out/spctl-dmg.log" || die "Gatekeeper 未認可 dmg（見 $out/spctl-dmg.log）"
 mnt=$(mktemp -d /tmp/okm-mead-dmg.XXXXXX)
 hdiutil attach -nobrowse -readonly -noautoopen -mountpoint "$mnt" "$dmg" >/dev/null
-spctl -a -vv -t execute "$mnt/OKM-Mead.app" > "$out/spctl-app.log" 2>&1 || true
+spctl -a -vv -t execute "$mnt/OKM Mead.app" > "$out/spctl-app.log" 2>&1 || true
 hdiutil detach -quiet "$mnt" || hdiutil detach -force -quiet "$mnt"; rmdir "$mnt" 2>/dev/null || true
 grep -q "Notarized Developer ID" "$out/spctl-app.log" || die "Gatekeeper 未認可 app（見 $out/spctl-app.log）"
 dmg_sha=$(shasum -a 256 "$dmg" | cut -d' ' -f1)

@@ -74,3 +74,6 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 14pt 0; }
 
 figure.diagram { margin: 10pt 0 14pt; text-align: center; break-inside: avoid; }
 figure.diagram svg { max-width: 100%; height: auto; }
+
+/* 圖片不超出版面，也不被分頁切成兩半。 */
+img { max-width: 100%; height: auto; break-inside: avoid; }

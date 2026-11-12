@@ -39,6 +39,7 @@ Typora 這類編輯器假設使用者已經會 Markdown 語法；OKM Mead 把語
 - 插入並編輯流程圖，檔案內以 Mermaid 格式儲存。
 - 插入 URL 連結。
 - 轉換成 PDF。
+- 插入圖片（2026-11-12 使用者指定加入）：圖檔在文件存檔後複製到文件旁邊的 `md.img` 資料夾。
 
 限制：
 
@@ -46,7 +47,7 @@ Typora 這類編輯器假設使用者已經會 Markdown 語法；OKM Mead 把語
 - 使用者不需要、也不應該被要求輸入 Markdown 或 Mermaid 語法。
 - 介面語言：繁體中文（台灣用語）。是否同時提供英文介面尚未決定。
 
-尚未決定：圖片插入、Sparkle 自動更新與正式發行流程何時接上原生版、最低支援的 macOS 版本（目前暫定 macOS 15）。
+尚未決定：最低支援的 macOS 版本（目前暫定 macOS 15）。
 
 ## Brand Commitments
 

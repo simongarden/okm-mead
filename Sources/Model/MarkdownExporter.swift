@@ -144,6 +144,8 @@ enum MarkdownExporter {
         switch attachment {
         case let table as TableAttachment: table.model.markdown
         case let diagram as DiagramAttachment: "```mermaid\n\(diagram.model.source)\n```"
+        case let image as ImageAttachment:
+            "![\(escape(image.model.alt))](\(escapeDestination(image.model.path)))"
         case is DividerAttachment: "---"
         default: nil
         }

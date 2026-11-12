@@ -12,7 +12,7 @@ settings:
     SWIFT_VERSION: "6.0"
     SWIFT_STRICT_CONCURRENCY: complete
     MARKETING_VERSION: "2.0.0"
-    CURRENT_PROJECT_VERSION: "2"
+    CURRENT_PROJECT_VERSION: "3"
     ENABLE_HARDENED_RUNTIME: YES
     ONLY_ACTIVE_ARCH[config=Debug]: YES
 
@@ -43,8 +43,9 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.okmaster.OKMMead
-        # 命名規則見 okm-mead/docs/BRANDING.md：bundle 與執行檔用 OKM-Mead，模組名不能有符號。
-        PRODUCT_NAME: OKM-Mead
+        # App 名稱（Finder、Dock、選單列）是「OKM Mead」；執行檔維持沒有空白的 OKM-Mead，模組名不能有符號。
+        PRODUCT_NAME: OKM Mead
+        EXECUTABLE_NAME: OKM-Mead
         PRODUCT_MODULE_NAME: OKMMead
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
@@ -56,7 +57,7 @@ targets:
       path: Resources/Info.plist
       properties:
         CFBundleDisplayName: OKM Mead
-        CFBundleName: OKM-Mead
+        CFBundleName: OKM Mead
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSApplicationCategoryType: public.app-category.productivity
@@ -93,7 +94,7 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: YES
         BUNDLE_LOADER: $(TEST_HOST)
-        TEST_HOST: $(BUILT_PRODUCTS_DIR)/OKM-Mead.app/Contents/MacOS/OKM-Mead
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/OKM Mead.app/Contents/MacOS/OKM-Mead"
 
 schemes:
   OKM-Mead:

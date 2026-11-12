@@ -42,6 +42,12 @@ final class EditorController: NSObject, ObservableObject {
     @Published var exportFailure: ExportFailure?
     /// 檔名（不含副檔名），用來當 PDF 的預設檔名。
     var documentName = "未命名"
+    /// 文件存檔的位置；還沒存過檔時是 nil。圖片的相對路徑以它所在的資料夾為準。
+    @Published var fileURL: URL? {
+        didSet { if fileURL != oldValue { storeImages(previousDirectory: oldValue?.deletingLastPathComponent()) } }
+    }
+    /// 已插入、但還沒複製到文件旁邊的圖片：Markdown 路徑 → 原始檔案。文件存檔後才知道要複製到哪裡。
+    private var pendingImages: [String: URL] = [:]
 
     /// 文件結尾的空段落沒有任何字元可以掛屬性，它的樣式另外記在這裡。
     private var trailingSemantic: [NSAttributedString.Key: Any]? = [.meadBlock: BlockStyle.title.rawValue]
@@ -543,6 +549,90 @@ final class EditorController: NSObject, ObservableObject {
         insertBlock(TableAttachment(model: model), actionName: "插入表格")
     }
 
+    // MARK: 圖片
+
+    func chooseImages() {
+        guard !isSourceMode, let window = scrollView.window else { return }
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.image]
+        panel.allowsMultipleSelection = true
+        panel.prompt = "插入"
+        panel.message = "選擇要放進文件的圖片"
+        panel.beginSheetModal(for: window) { [weak self] response in
+            guard response == .OK, let self else { return }
+            for url in panel.urls { self.insertImage(from: url) }
+        }
+    }
+
+    /// 插入一張圖片。文件已經存過檔就立刻把圖片複製到旁邊的 `md.img`，否則等存檔後再複製。
+    func insertImage(from source: URL) {
+        guard !isSourceMode else { return }
+        // 同一張圖插入第二次時沿用同一個檔案；只有內容不同的同名圖片才需要另外取名。
+        let taken = Set(imageModels.map(\.path)).union(pendingImages.keys).filter { path in
+            guard let existing = imageURL(for: path), existing.isFileURL else { return true }
+            return !FileManager.default.contentsEqual(atPath: existing.path, andPath: source.path)
+        }
+        let path = ImageStore.path(for: source, in: fileURL?.deletingLastPathComponent(), taken: taken)
+        pendingImages[path] = source
+        let alt = source.deletingPathExtension().lastPathComponent
+        insertBlock(ImageAttachment(model: ImageModel(alt: alt, path: path)), actionName: "插入圖片")
+        storeImages(previousDirectory: nil)
+    }
+
+    private var imageModels: [ImageModel] {
+        var models: [ImageModel] = []
+        storage.enumerateAttribute(.attachment, in: NSRange(location: 0, length: storage.length)) { value, _, _ in
+            if let image = value as? ImageAttachment { models.append(image.model) }
+        }
+        return models
+    }
+
+    /// 圖片目前讀得到的位置：還沒複製的用原始檔案，其餘以文件所在資料夾為準。
+    func imageURL(for path: String) -> URL? {
+        if let pending = pendingImages[path] { return pending }
+        guard ImageStore.isRelative(path) else {
+            return path.hasPrefix("/") ? URL(fileURLWithPath: path) : URL(string: path)
+        }
+        guard let directory = fileURL?.deletingLastPathComponent() else { return nil }
+        return ImageStore.fileURL(for: path, in: directory)
+    }
+
+    /// 轉成 PDF 與列印用：每張圖片的 Markdown 路徑 → 實際檔案。
+    var imageFiles: [String: URL] {
+        var files: [String: URL] = [:]
+        for model in imageModels {
+            if let url = imageURL(for: model.path), url.isFileURL { files[model.path] = url }
+        }
+        return files
+    }
+
+    /// 把圖片複製到文件旁邊的 `md.img`。文件搬到新位置（另存新檔）時，從舊位置把圖片帶過去。
+    private func storeImages(previousDirectory: URL?) {
+        guard let directory = fileURL?.deletingLastPathComponent() else { return }
+        var failed: [String] = []
+        for model in imageModels where ImageStore.isRelative(model.path) {
+            let path = model.path
+            var source = pendingImages[path]
+            if source == nil, let previousDirectory {
+                let old = ImageStore.fileURL(for: path, in: previousDirectory)
+                if FileManager.default.fileExists(atPath: old.path) { source = old }
+            }
+            guard let source else { continue }
+            do {
+                try ImageStore.copy(source, to: path, in: directory)
+                pendingImages[path] = nil
+            } catch {
+                failed.append(model.fileName)
+            }
+        }
+        if !failed.isEmpty {
+            exportFailure = ExportFailure(
+                title: "無法複製圖片",
+                message: "「\(failed.joined(separator: "、"))」沒有複製到文件旁邊的「\(ImageStore.folderName)」資料夾。請確認那個位置可以寫入。"
+            )
+        }
+    }
+
     func insertDivider() {
         insertBlock(DividerAttachment(), actionName: "插入分隔線")
     }
@@ -746,7 +836,7 @@ final class EditorController: NSObject, ObservableObject {
             Task {
                 defer { self.isExporting = false }
                 do {
-                    try await PDFExporter.export(markdown: self.markdown, to: url, window: window)
+                    try await PDFExporter.export(markdown: self.markdown, images: self.imageFiles, to: url, window: window)
                 } catch {
                     self.exportFailure = ExportFailure(
                         title: "無法轉成 PDF",
@@ -765,7 +855,7 @@ final class EditorController: NSObject, ObservableObject {
         Task {
             defer { isExporting = false }
             do {
-                try await PDFExporter.export(markdown: markdown, to: url, window: window)
+                try await PDFExporter.export(markdown: markdown, images: imageFiles, to: url, window: window)
                 printPreview = PrintPreviewItem(url: url)
             } catch {
                 exportFailure = ExportFailure(title: "無法預覽列印", message: "請再試一次。（\(error.localizedDescription)）")
@@ -777,7 +867,7 @@ final class EditorController: NSObject, ObservableObject {
         guard let window = scrollView.window ?? sourceScrollView.window else { return }
         Task {
             do {
-                try await PDFExporter.print(markdown: markdown, window: window)
+                try await PDFExporter.print(markdown: markdown, images: imageFiles, window: window)
             } catch {
                 exportFailure = ExportFailure(title: "無法列印", message: "請確認印表機設定後再試一次。（\(error.localizedDescription)）")
             }

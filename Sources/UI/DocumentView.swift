@@ -4,6 +4,7 @@ import SwiftUI
 struct DocumentView: View {
     @ObservedObject var editor: EditorController
     let documentName: String
+    let fileURL: URL?
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -44,9 +45,11 @@ struct DocumentView: View {
         .focusedSceneObject(editor)
         .onAppear {
             editor.documentName = documentName
+            editor.fileURL = fileURL
             AppearanceController.shared.apply()
         }
         .onChange(of: documentName) { _, name in editor.documentName = name }
+        .onChange(of: fileURL) { _, url in editor.fileURL = url }
     }
 
     private var failureBinding: Binding<Bool> {
@@ -133,6 +136,10 @@ struct DocumentView: View {
                 }
                 .disabled(formattingDisabled)
                 .help("加入或編輯連結（⌘K）")
+                Button { editor.chooseImages() } label: {
+                    Label("圖片", systemImage: "photo")
+                }
+                .help("插入圖片")
                 Button { editor.insertTable() } label: {
                     Label("表格", systemImage: "tablecells")
                 }

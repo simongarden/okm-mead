@@ -15,6 +15,22 @@ struct OKMMeadApp: App {
                 LicenseWindow.show()
             }
         }
+        // 驗收用：OKMMEAD_IMAGE_CHECK=<圖片>|<存檔位置>。插入圖片後把未命名文件存到指定位置，
+        // 確認存檔後圖片真的被複製到旁邊的 md.img（走的是和使用者按「儲存」相同的路徑）。
+        if let check = ProcessInfo.processInfo.environment["OKMMEAD_IMAGE_CHECK"]?.split(separator: "|").map(String.init),
+           check.count == 2 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                guard let document = NSDocumentController.shared.documents.first,
+                      let editor = (document.windowControllers.first?.window?.firstResponder as? MeadTextView)?.editor
+                else { print("IMAGE_CHECK 找不到文件"); return }
+                editor.insertImage(from: URL(fileURLWithPath: check[0]))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    document.save(to: URL(fileURLWithPath: check[1]), ofType: document.fileType ?? "", for: .saveAsOperation) { error in
+                        print("IMAGE_CHECK saved", error?.localizedDescription ?? "ok")
+                    }
+                }
+            }
+        }
         #endif
     }
 
@@ -22,7 +38,8 @@ struct OKMMeadApp: App {
         DocumentGroup(newDocument: { MeadDocument() }) { file in
             DocumentView(
                 editor: file.document.editor,
-                documentName: file.fileURL?.deletingPathExtension().lastPathComponent ?? "未命名"
+                documentName: file.fileURL?.deletingPathExtension().lastPathComponent ?? "未命名",
+                fileURL: file.fileURL
             )
             .frame(minWidth: 760, minHeight: 480)
             .tint(.okmAccent)
@@ -101,6 +118,8 @@ struct MeadCommands: Commands {
             Button("連結…") { editor?.editLink() }
                 .keyboardShortcut("k")
             Divider()
+            Button("圖片…") { editor?.chooseImages() }
+                .keyboardShortcut("i", modifiers: [.command, .option])
             Button("表格") { editor?.insertTable() }
                 .keyboardShortcut("t", modifiers: [.command, .option])
             Button("流程圖…") { editor?.insertDiagram() }

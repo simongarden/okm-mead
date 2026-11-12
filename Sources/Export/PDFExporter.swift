@@ -1,5 +1,6 @@
 import AppKit
 import Markdown
+import UniformTypeIdentifiers
 import WebKit
 
 /// 轉成 PDF 與列印。文件先轉成 HTML 交給 WebKit 分頁排版，表格跨頁、流程圖向量輸出都由它處理。
@@ -9,15 +10,15 @@ enum PDFExporter {
     private static let paperSize = NSSize(width: 595.28, height: 841.89)
     private static let margin: CGFloat = 62
 
-    static func export(markdown: String, to url: URL, window: NSWindow) async throws {
+    static func export(markdown: String, images: [String: URL] = [:], to url: URL, window: NSWindow) async throws {
         let info = printInfo()
         info.jobDisposition = .save
         info.dictionary()[NSPrintInfo.AttributeKey.jobSavingURL] = url
-        try await run(markdown: markdown, info: info, window: window, showsPanel: false)
+        try await run(markdown: markdown, images: images, info: info, window: window, showsPanel: false)
     }
 
-    static func print(markdown: String, window: NSWindow) async throws {
-        try await run(markdown: markdown, info: printInfo(), window: window, showsPanel: true)
+    static func print(markdown: String, images: [String: URL] = [:], window: NSWindow) async throws {
+        try await run(markdown: markdown, images: images, info: printInfo(), window: window, showsPanel: true)
     }
 
     private static func printInfo() -> NSPrintInfo {
@@ -34,13 +35,13 @@ enum PDFExporter {
         return info
     }
 
-    private static func run(markdown: String, info: NSPrintInfo, window: NSWindow, showsPanel: Bool) async throws {
+    private static func run(markdown: String, images: [String: URL], info: NSPrintInfo, window: NSWindow, showsPanel: Bool) async throws {
         let contentWidth = paperSize.width - margin * 2
         let webView = WKWebView(frame: NSRect(x: 0, y: 0, width: contentWidth, height: paperSize.height - margin * 2))
         let loader = PageLoader()
         try await loader.load(webView, resource: "export")
 
-        let html = HTMLFormatter.format(markdown)
+        let html = embedImages(images, in: HTMLFormatter.format(markdown))
         _ = try await webView.callAsyncJavaScript(
             "return await fill(html, theme)",
             arguments: ["html": html, "theme": MermaidRenderer.theme(dark: false)],
@@ -62,6 +63,21 @@ enum PDFExporter {
         }
         // 列印對話框按「取消」不算錯誤；只有存成 PDF 失敗才回報。
         if !succeeded, !showsPanel { throw RenderError.pdfFailed }
+    }
+}
+
+extension PDFExporter {
+    /// 排版用的網頁讀不到文件旁邊的檔案，所以把圖片直接內嵌進 HTML。
+    static func embedImages(_ images: [String: URL], in html: String) -> String {
+        var result = html
+        for (path, url) in images {
+            guard let data = try? Data(contentsOf: url) else { continue }
+            let type = UTType(filenameExtension: url.pathExtension)?.preferredMIMEType ?? "image/png"
+            let escaped = path.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "\"", with: "&quot;")
+            result = result.replacingOccurrences(
+                of: "src=\"\(escaped)\"", with: "src=\"data:\(type);base64,\(data.base64EncodedString())\"")
+        }
+        return result
     }
 }
 
