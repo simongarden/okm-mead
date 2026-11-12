@@ -24,12 +24,12 @@
 
 ## 編輯核心與 OKM Mimir 共用
 
-OKM Mimir（另一個獨立發行的 App）內建這個專案的編輯核心：`Sources/Model`、`Editor`、`UI`、`Export`，不含 App 殼層（`Sources/App`）、更新機制與品牌（`Sources/Brand`）。兩個產品共用同一份核心，以這個儲存庫為準。
+OKM Mimir（另一個獨立發行的 App）使用這個專案的編輯核心（`Packages/OKMMead`），不含 App 殼層（`Sources/App`）、更新機制與品牌（`Sources/Brand`）。兩個產品共用同一份核心，以這個儲存庫為準。
 
 - **核心的修改一律在這裡做、在 Mead 裡測試**，再由 Mimir 同步。Mimir 那邊只放轉接層，不改核心行為。
-- **目標結構**：把核心切成這個儲存庫內的獨立 Swift 套件，Mead App 也只透過公開介面使用它；核心穩定後打核心 tag（`core-<主>.<次>.<修訂>`，與 App 版號分開），Mimir 釘在 tag。介面有不相容變更才升核心主版號，並在提交說明寫明需要使用端配合的地方。套件化之前，Mimir 用的是取自特定 commit 的拷貝。
-- **核心不得依賴 App 殼層**：`Sources/Model`、`Editor`、`UI`、`Export` 不引用 `Sources/App`、`Sources/Brand`、Sparkle，也不寫死產品名稱、商標圖形或 bundle id。配色、字型、介面文字、檔案位置等使用端各自不同的東西，做成可注入的設定，不為特定產品加分支；兩個 App 的功能差異用設定開關控制。
-- **目前狀態（2026-11-12）**：核心已切成 `Packages/OKMMead`（上面寫的 `Sources/Model`、`Editor`、`UI`、`Export` 現在在 `Packages/OKMMead/Sources/OKMMead/` 之下），Mead App 改為只經公開介面使用它；OKM Mimir 的 `Packages/OKMMead` 是同一份內容（只差 `Package.swift` 開頭記錄來源的兩行）。這次套件化連同可嵌入、配色注入、多語系、唯讀預覽、H4–H6／front matter／表格行內格式的保存一起進來，尚未打核心 tag；Mimir 仍以拷貝同步，打 tag 後再改為 git 相依。
+- **結構**：核心是這個儲存庫內的獨立 Swift 套件 `Packages/OKMMead`（原本的 `Sources/Model`、`Editor`、`UI`、`Export` 在 `Packages/OKMMead/Sources/OKMMead/` 之下），Mead App 經 `project.yml` 引用它，只使用公開介面。儲存庫根目錄另有一份 `Package.swift`，把同一份原始碼公開給其他專案以 git 相依引用（SwiftPM 只認根目錄的 `Package.swift`）；**兩份 `Package.swift` 的相依、資源與平台設定必須保持一致**，改其中一份就要改另一份，並在根目錄執行 `swift build` 確認。
+- **版本**：OKM Mimir 以 commit 釘選（`revision:`）引用，不靠版本 tag 解析。核心穩定後另打 `core-<主>.<次>.<修訂>` 的 tag 作為給人看的標記（與 App 的 `v<版本>-<build>` tag 分開；介面有不相容變更才升主版號），並在提交說明寫明需要使用端配合的地方。
+- **核心不得依賴 App 殼層**：`Packages/OKMMead` 不引用 `Sources/App`、`Sources/Brand`、Sparkle，也不寫死產品名稱、商標圖形或 bundle id。配色、字型、介面文字、檔案位置等使用端各自不同的東西，做成可注入的設定，不為特定產品加分支；兩個 App 的功能差異用設定開關控制。
 - **授權**：核心維持 MIT。不得把 OKM Mimir（AGPL）的程式拷貝進來；共用的程式只能在這裡寫。
 - **發行順序**：兩邊都需要的核心修正，先發行 Mead 驗證，再由 Mimir 更新。改到核心的公開介面或往返測試（`Tests/MarkdownRoundTripTests.swift`）涵蓋的行為時，在提交說明標明，方便 Mimir 同步時核對。
 
