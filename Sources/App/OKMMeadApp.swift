@@ -6,6 +6,7 @@ struct OKMMeadApp: App {
         // 啟動時直接給一份空白文件，而不是「打開」檔案的面板。
         // 面板一旦被取消，App 會在沒有任何視窗的狀態下繼續執行，看起來像沒有啟動。
         UserDefaults.standard.register(defaults: ["NSShowAppCentricOpenPanelInsteadOfUntitledFile": false])
+        Updater.shared.start()
         #if DEBUG
         // 截圖驗收用：OKMMEAD_SHOW_ABOUT=1 時啟動後直接開啟關於視窗。
         if ProcessInfo.processInfo.environment["OKMMEAD_SHOW_ABOUT"] != nil {
@@ -38,6 +39,8 @@ struct MeadCommands: Commands {
     var body: some Commands {
         CommandGroup(replacing: .appInfo) {
             Button("關於 OKM Mead") { AboutWindow.show() }
+            Button("檢查更新…") { Updater.shared.checkForUpdates() }
+                .disabled(!Updater.shared.isAvailable)
         }
         CommandGroup(replacing: .importExport) {
             Button("轉成 PDF…") { editor?.exportPDF() }

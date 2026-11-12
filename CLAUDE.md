@@ -1,12 +1,14 @@
 # OKM Mead 原生版：開發須知
 
-產品定位讀 @PRODUCT.md，視覺規範讀 DESIGN.md，命名規範讀 `../okm-mead/docs/BRANDING.md`（顯示用 `OKM Mead`，bundle 與執行檔 `OKM-Mead`，模組與識別字 `OKMMead`）。
+產品定位讀 @PRODUCT.md，視覺規範讀 DESIGN.md，命名規範：顯示用 `OKM Mead`，bundle 與執行檔 `OKM-Mead`，必須小寫時用 `okm-mead`，模組與識別字 `OKMMead`（環境變數前綴 `OKMMEAD_`）。
 
 ## 指令
 
 - 產生專案：`xcodegen generate`（改了 `project.yml` 或新增檔案後都要跑）
 - 編譯：`xcodebuild -project OKM-Mead.xcodeproj -scheme OKM-Mead -derivedDataPath build/DerivedData build`
 - 測試：同上，把 `build` 換成 `test`。測試以 App 為宿主執行；斷言失敗時 XCTest 產生報告很慢（可能超過十分鐘），看起來像卡住，其實不是無窮迴圈。
+
+- 發行：`scripts/release.sh`（`--dry-run` 不建立 GitHub Release）。版本在 `project.yml` 的 `MARKETING_VERSION`／`CURRENT_PROJECT_VERSION`，每次發行前先遞增 build、提交並推送。
 
 ## 架構重點
 

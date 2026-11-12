@@ -11,6 +11,7 @@ struct LicenseComponent: Identifiable {
         .init(name: "swift-markdown", license: "Apache-2.0"),
         .init(name: "swift-cmark", license: "BSD-2-Clause"),
         .init(name: "Mermaid", license: "MIT"),
+        .init(name: "Sparkle", license: "MIT"),
         .init(name: "Poppins", license: "OFL-1.1"),
     ]
 
@@ -30,13 +31,13 @@ enum LicenseWindow {
         let hosting = NSHostingController(rootView: LicenseView { window?.close() })
         hosting.sizingOptions = []
         let created = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 460, height: 480),
+            contentRect: NSRect(x: 0, y: 0, width: 460, height: 520),
             styleMask: [.titled, .closable], backing: .buffered, defer: false
         )
         created.title = "授權與原始碼"
         created.isReleasedWhenClosed = false
         created.contentViewController = hosting
-        created.setContentSize(NSSize(width: 460, height: 480))
+        created.setContentSize(NSSize(width: 460, height: 520))
         created.center()
         window = created
         created.makeKeyAndOrderFront(nil)

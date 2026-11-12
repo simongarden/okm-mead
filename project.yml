@@ -12,7 +12,7 @@ settings:
     SWIFT_VERSION: "6.0"
     SWIFT_STRICT_CONCURRENCY: complete
     MARKETING_VERSION: "2.0.0"
-    CURRENT_PROJECT_VERSION: "1"
+    CURRENT_PROJECT_VERSION: "2"
     ENABLE_HARDENED_RUNTIME: YES
     ONLY_ACTIVE_ARCH[config=Debug]: YES
 
@@ -20,6 +20,9 @@ packages:
   swift-markdown:
     url: https://github.com/swiftlang/swift-markdown
     from: 0.6.0
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: "2.10.0"
 
 targets:
   OKM-Mead:
@@ -36,6 +39,7 @@ targets:
     dependencies:
       - package: swift-markdown
         product: Markdown
+      - package: Sparkle
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.okmaster.OKMMead
@@ -57,6 +61,11 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSApplicationCategoryType: public.app-category.productivity
         NSHumanReadableCopyright: "Copyright © 2026 OKMaster Inc."
+        # Sparkle：每個 GitHub Release 都附自己的 appcast.xml，latest 永遠指向最新一版。
+        SUFeedURL: https://github.com/simongarden/okm-mead/releases/latest/download/appcast.xml
+        SUPublicEDKey: dFLJKgiscbGmbtYIEoGiJh3hmcgxOtkrkFO54ImJN5A=
+        SUEnableAutomaticChecks: true
+        SUScheduledCheckInterval: 86400
         CFBundleDocumentTypes:
           - CFBundleTypeName: Markdown 文件
             CFBundleTypeRole: Editor

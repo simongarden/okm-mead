@@ -39,6 +39,14 @@
 	<string>public.app-category.productivity</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2026 OKMaster Inc.</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>https://github.com/simongarden/okm-mead/releases/latest/download/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>dFLJKgiscbGmbtYIEoGiJh3hmcgxOtkrkFO54ImJN5A=</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

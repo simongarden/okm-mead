@@ -35,6 +35,16 @@ xcodebuild -project OKM-Mead.xcodeproj -scheme OKM-Mead -derivedDataPath build/D
 
 `OKM-Mead.xcodeproj` 由 `project.yml` 產生，不提交到 git。
 
+## 發行
+
+```bash
+scripts/release.sh --notes-file <發行說明檔>
+```
+
+腳本會跑測試、建置 universal 版、以 Developer ID 簽署、公證並 staple，再用 Sparkle 簽署 dmg 與 `appcast.xml`，最後建立 GitHub Release。`--dry-run` 會完成含公證在內的全部步驟，但只寫到 `build/release/`，不建立 Release。
+
+發行前先遞增 `project.yml` 的 `CURRENT_PROJECT_VERSION`，提交並推送。機器相關的設定放在不入 git 的 `scripts/release.local`，格式見 `scripts/release.local.example`。
+
 ## 程式結構
 
 | 路徑 | 內容 |
@@ -53,11 +63,10 @@ xcodebuild -project OKM-Mead.xcodeproj -scheme OKM-Mead -derivedDataPath build/D
 - 還不能插入圖片；既有檔案裡的圖片會顯示成「〔圖片：說明〕」，存檔時原樣保留。
 - 標題只有三層；檔案裡第四層以下的標題會併入小標題。
 - 表格儲存格是純文字，不支援儲存格內的粗體或連結。
-- 還沒有 Sparkle 自動更新與發行腳本。
 - `Sources/Brand/OKMPalette.swift` 目前是從 OKM Mimir 複製的產生檔；要讓色票自動同步，需在 `okm-brand/targets.json` 加入這個專案。
 
 ## 授權
 
 程式碼採 [MIT 授權](LICENSE)。產品名稱「OKM Mead」、標誌、App 圖示與動態 Logo 不在授權範圍內，見 [TRADEMARKS.md](TRADEMARKS.md)。
 
-內附的第三方元件：swift-markdown（Apache-2.0）、swift-cmark（BSD-2-Clause）、Mermaid（MIT）、Poppins 字型（SIL OFL 1.1）。授權全文在 `Resources/LICENSE-*.txt`，App 內可從「關於 OKM Mead › 授權與原始碼」查看。
+內附的第三方元件：swift-markdown（Apache-2.0）、swift-cmark（BSD-2-Clause）、Mermaid（MIT）、Sparkle（MIT）、Poppins 字型（SIL OFL 1.1）。授權全文在 `Resources/LICENSE-*.txt`，App 內可從「關於 OKM Mead › 授權與原始碼」查看。

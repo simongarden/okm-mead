@@ -1,0 +1,6 @@
+# Copy to scripts/release.local (git-ignored) and fill in. Sourced by scripts/release.sh.
+OKMMEAD_TEAM_ID=XXXXXXXXXX                    # Developer ID team
+OKMMEAD_NOTARY_PROFILE=notary-profile-name    # xcrun notarytool store-credentials <name>
+OKMMEAD_GITHUB_REPO=owner/okm-mead            # repository that hosts the releases and appcast.xml
+OKMMEAD_RELEASE_ARCHIVE_DIR=/path/to/版本發行  # local archive root; <YYYYMMDD>/ is created inside
+# OKMMEAD_SPARKLE_ACCOUNT=OKM-Mead            # Keychain account of the Sparkle EdDSA key
