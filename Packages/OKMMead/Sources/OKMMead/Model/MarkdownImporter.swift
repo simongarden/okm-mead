@@ -134,12 +134,23 @@ struct MarkdownImporter {
     }
 
     /// 儲存格保留行內的 Markdown（粗體、行內程式碼、連結），存檔時才不會被抹平成純文字。
+    /// 經過和內文相同的匯入、匯出，原本就是字面的星號或方括號才會維持跳脫。
     private static func cellText(_ cell: Markdown.Table.Cell) -> String {
-        let text = cell.children.map { child -> String in
-            if let text = child as? Markdown.Text { return text.string }
-            return child.format().trimmingCharacters(in: .newlines)
-        }.joined()
+        let inlines = MarkdownImporter().inlines(of: cell)
+        let text = MarkdownExporter.inlineMarkdown(of: inlines, in: NSRange(location: 0, length: inlines.length))
         return text.replacingOccurrences(of: "<br>", with: "\n").replacingOccurrences(of: "<br/>", with: "\n")
+    }
+
+    /// 把儲存格裡的一行 Markdown 解析成語意屬性字串。
+    /// 包成一格表格再解析，結果才和它在檔案裡的意思一致（例如開頭的「1.」不會被當成清單）。
+    static func cellInlines(from line: String) -> NSAttributedString {
+        guard !line.isEmpty else { return NSAttributedString() }
+        let escaped = line.replacingOccurrences(of: "|", with: "\\|")
+        let document = Document(parsing: "| \(escaped) |\n| --- |")
+        guard let table = document.child(at: 0) as? Markdown.Table, let cell = Array(table.head.cells).first else {
+            return NSAttributedString(string: line)
+        }
+        return MarkdownImporter().inlines(of: cell)
     }
 
     // MARK: 行內

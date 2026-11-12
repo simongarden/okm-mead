@@ -13,7 +13,9 @@ struct TableBlockView: View {
         var column: Int
     }
 
-    @FocusState private var focus: Cell?
+    /// 正在輸入的儲存格，以及要求把焦點移過去的儲存格。
+    @State private var focus: Cell?
+    @State private var focusRequest: Cell?
     @State private var isHovered = false
 
     private static let handleSize: CGFloat = 16
@@ -88,11 +90,28 @@ struct TableBlockView: View {
         )
         return Group {
             if isEditable {
-                TextField("", text: text, prompt: isHeader ? Text("欄位名稱", bundle: .module) : nil, axis: .vertical)
-                    .textFieldStyle(.plain)
-                    .focused($focus, equals: Cell(row: row, column: column))
-                    .onSubmit { moveDown(from: row, column: column) }
-                    .contextMenu { cellMenu(row: row, column: column) }
+                let position = Cell(row: row, column: column)
+                TableCellEditor(
+                    markdown: text.wrappedValue,
+                    isHeader: isHeader,
+                    placeholder: isHeader ? String(localized: "欄位名稱", bundle: .module) : nil,
+                    accessibilityLabel: isHeader
+                        ? String(localized: "第 \(column + 1) 欄的欄位名稱", bundle: .module)
+                        : String(localized: "第 \(row) 列第 \(column + 1) 欄", bundle: .module),
+                    wantsFocus: focusRequest == position,
+                    editor: editor,
+                    onChange: { text.wrappedValue = $0 },
+                    onFocusChange: { focused in
+                        if focused {
+                            focus = position
+                            if focusRequest == position { focusRequest = nil }
+                        } else if focus == position {
+                            focus = nil
+                        }
+                    },
+                    onSubmit: { moveDown(from: row, column: column) },
+                    menuItems: { cellMenu(row: row, column: column) }
+                )
             } else {
                 Text(Self.formatted(text.wrappedValue))
                     .textSelection(.enabled)
@@ -123,23 +142,25 @@ struct TableBlockView: View {
     /// 在最後一列按 Return 會自動多一列，連續輸入資料時不用伸手拿滑鼠。
     private func moveDown(from row: Int, column: Int) {
         if row == model.rowCount - 1 { model.insertRow(at: model.rowCount) }
-        focus = Cell(row: row + 1, column: column)
+        focusRequest = Cell(row: row + 1, column: column)
     }
 
-    @ViewBuilder
-    private func cellMenu(row: Int, column: Int) -> some View {
-        Button(String(localized: "在上方插入一列", bundle: .module)) { model.insertRow(at: row) }
-            .disabled(row == 0)
-        Button(String(localized: "在下方插入一列", bundle: .module)) { model.insertRow(at: row + 1) }
-        Button(String(localized: "在左側插入一欄", bundle: .module)) { model.insertColumn(at: column) }
-        Button(String(localized: "在右側插入一欄", bundle: .module)) { model.insertColumn(at: column + 1) }
-        Divider()
-        Button(String(localized: "刪除這一列", bundle: .module)) { model.removeRow(at: row) }
-            .disabled(row == 0 || model.rowCount <= 2)
-        Button(String(localized: "刪除這一欄", bundle: .module)) { model.removeColumn(at: column) }
-            .disabled(model.columnCount <= 1)
-        Divider()
-        Button(String(localized: "刪除表格", bundle: .module), role: .destructive) { editor?.deleteBlock(attachment) }
+    private func cellMenu(row: Int, column: Int) -> [TableCellMenuItem] {
+        [
+            TableCellMenuItem(title: String(localized: "在上方插入一列", bundle: .module), isEnabled: row > 0) { model.insertRow(at: row) },
+            TableCellMenuItem(title: String(localized: "在下方插入一列", bundle: .module)) { model.insertRow(at: row + 1) },
+            TableCellMenuItem(title: String(localized: "在左側插入一欄", bundle: .module)) { model.insertColumn(at: column) },
+            TableCellMenuItem(title: String(localized: "在右側插入一欄", bundle: .module)) { model.insertColumn(at: column + 1) },
+            .separator,
+            TableCellMenuItem(title: String(localized: "刪除這一列", bundle: .module), isEnabled: row > 0 && model.rowCount > 2) {
+                model.removeRow(at: row)
+            },
+            TableCellMenuItem(title: String(localized: "刪除這一欄", bundle: .module), isEnabled: model.columnCount > 1) {
+                model.removeColumn(at: column)
+            },
+            .separator,
+            TableCellMenuItem(title: String(localized: "刪除表格", bundle: .module)) { editor?.deleteBlock(attachment) },
+        ]
     }
 
     private func handle(systemImage: String, help: String, action: @escaping () -> Void) -> some View {

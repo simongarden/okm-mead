@@ -18,6 +18,7 @@
 - 改動文字儲存區一律經過 `EditorController.edit(_:replacement:actionName:_:)`，才會進復原堆疊。
 - 文件結尾的空段落沒有字元可掛屬性，它的樣式記在 `EditorController.trailingSemantic`。
 - 表格、流程圖、分隔線是 `BlockAttachment`，各自獨佔一個段落。區塊的高度由 TextKit 決定；內容變動後要呼叫 `relayoutBlock`。
+- 表格儲存格在資料模型（`TableModel`）裡存的是行內 Markdown；畫面上由 `TableCellTextView` 顯示成排版好的文字，轉換經 `InlineMarkdown`（和內文共用同一套行內匯入、匯出）。儲存格取得焦點時，`EditorController` 把粗體、斜體、刪除線、連結指令轉給它。
 - 清單記號、待辦方框、引言線、程式碼底色由 `MeadLayoutFragment` 繪製，不是文字內容。
 - 圖片是 `ImageAttachment`，Markdown 記相對路徑 `md.img/檔名`。還沒存檔的文件先記在 `EditorController.pendingImages`，`fileURL` 一設定（存檔、另存）就由 `storeImages` 複製到文件旁邊；不覆寫既有檔案。
 - 任何新功能都要能無損存成 Markdown；存不進去的格式不做。新增匯出規則時在 `Tests/MarkdownRoundTripTests.swift` 補往返測試。

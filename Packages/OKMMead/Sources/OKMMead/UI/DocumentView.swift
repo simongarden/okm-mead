@@ -74,7 +74,12 @@ public struct MeadDocumentView: View {
 
     /// 原始格式下沒有樣式可言，游標在表格或流程圖上時也一樣。
     private var formattingDisabled: Bool {
-        editor.isSourceMode || editor.selectionIsAttachment
+        editor.isSourceMode || editor.selectionIsAttachment || editor.isEditingCell
+    }
+
+    /// 粗體、斜體、連結在表格儲存格裡也能用；段落樣式與清單不行。
+    private var inlineFormattingDisabled: Bool {
+        editor.isSourceMode || (editor.selectionIsAttachment && !editor.isEditingCell)
     }
 
     @ToolbarContentBuilder
@@ -110,7 +115,10 @@ public struct MeadDocumentView: View {
                     }
                     .help(String(localized: "刪除線（⇧⌘X）", bundle: .module))
                 }
+            }
+            .disabled(inlineFormattingDisabled)
 
+            Group {
                 groupSeparator
 
                 Toggle(isOn: Binding(get: { editor.currentStyle == .bullet }, set: { _ in editor.toggleList(.bullet) })) {
@@ -147,7 +155,7 @@ public struct MeadDocumentView: View {
                 Button { editor.editLink() } label: {
                     Label(String(localized: "連結", bundle: .module), systemImage: "link")
                 }
-                .disabled(formattingDisabled)
+                .disabled(inlineFormattingDisabled)
                 .help(String(localized: "加入或編輯連結（⌘K）", bundle: .module))
                 Button { editor.chooseImages() } label: {
                     Label(String(localized: "圖片", bundle: .module), systemImage: "photo")

@@ -195,7 +195,7 @@ enum MarkdownExporter {
         var isEmphasized: Bool { bold || italic || strike }
     }
 
-    private static func inlineMarkdown(of text: NSAttributedString, in range: NSRange) -> String {
+    static func inlineMarkdown(of text: NSAttributedString, in range: NSRange) -> String {
         var runs: [Run] = []
         text.enumerateAttributes(in: range) { attributes, runRange, _ in
             var run = Run(text: (text.string as NSString).substring(with: runRange))

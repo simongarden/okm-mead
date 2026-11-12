@@ -391,11 +391,38 @@ public final class EditorController: NSObject, ObservableObject {
 
     // MARK: 文字格式
 
+    /// 正在輸入的表格儲存格。粗體、斜體、刪除線、連結指令在這段期間作用在儲存格上。
+    @Published private(set) var isEditingCell = false
+    private weak var activeCell: TableCellTextView?
+
+    func cellDidBecomeActive(_ cell: TableCellTextView) {
+        activeCell = cell
+        isEditingCell = true
+    }
+
+    func cellDidResignActive(_ cell: TableCellTextView) {
+        guard activeCell === cell else { return }
+        activeCell = nil
+        isEditingCell = false
+        syncTypingAttributes()
+    }
+
+    /// 儲存格裡游標所在位置的格式，讓工具列的粗體、斜體按鈕跟著亮起來。
+    func cellSelectionDidChange(bold: Bool, italic: Bool, strikethrough: Bool) {
+        isBold = bold
+        isItalic = italic
+        isStrikethrough = strikethrough
+    }
+
     public func toggleBold() { toggleInline(.meadBold, actionName: String(localized: "粗體", bundle: .module)) }
     public func toggleItalic() { toggleInline(.meadItalic, actionName: String(localized: "斜體", bundle: .module)) }
     public func toggleStrikethrough() { toggleInline(.meadStrike, actionName: String(localized: "刪除線", bundle: .module)) }
 
     private func toggleInline(_ key: NSAttributedString.Key, actionName: String) {
+        if let activeCell {
+            activeCell.toggle(key)
+            return
+        }
         let selection = textView.selectedRange()
         guard !selectionIsAttachment, !isSourceMode else { return }
         if selection.length == 0 {
@@ -752,6 +779,10 @@ public final class EditorController: NSObject, ObservableObject {
     // MARK: 連結
 
     public func editLink() {
+        if let activeCell {
+            activeCell.editLink()
+            return
+        }
         guard !selectionIsAttachment, !isSourceMode else { return }
         var range = textView.selectedRange()
         var existing: URL?

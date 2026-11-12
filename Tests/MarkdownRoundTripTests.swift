@@ -369,3 +369,48 @@ final class MidDocumentTypingTests: XCTestCase {
         XCTAssertEqual(editor.markdown, "## 標題內文\n\n結尾\n")
     }
 }
+
+@MainActor
+final class TableCellFormattingTests: XCTestCase {
+    func testCellMarkdownBecomesFormattedTextWithoutSyntax() {
+        let text = InlineMarkdown.attributedString(from: "**粗體** 與 [連結](https://example.com) 和 `程式碼`")
+        XCTAssertEqual(text.string, "粗體 與 連結 和 程式碼", "畫面上不該出現星號、方括號或反引號")
+        XCTAssertEqual(text.attribute(.meadBold, at: 0, effectiveRange: nil) as? Bool, true)
+        XCTAssertNil(text.attribute(.meadBold, at: 3, effectiveRange: nil))
+        XCTAssertEqual((text.attribute(.link, at: 5, effectiveRange: nil) as? URL)?.absoluteString, "https://example.com")
+        XCTAssertEqual(text.attribute(.meadInlineCode, at: 10, effectiveRange: nil) as? Bool, true)
+        XCTAssertEqual(InlineMarkdown.markdown(from: text), "**粗體** 與 [連結](https://example.com) 和 `程式碼`")
+    }
+
+    func testCellKeepsLinesAndLeadingMarkers() {
+        // 開頭的「1.」在儲存格裡只是文字，不是清單。
+        let text = InlineMarkdown.attributedString(from: "1. *第一行*\n第二行 a|b")
+        XCTAssertEqual(text.string, "1. 第一行\n第二行 a|b")
+        XCTAssertEqual(text.attribute(.meadItalic, at: 3, effectiveRange: nil) as? Bool, true)
+        XCTAssertEqual(InlineMarkdown.markdown(from: text), "1. *第一行*\n第二行 a|b")
+    }
+
+    func testLiteralSyntaxInCellsStaysLiteral() {
+        let source = "| 欄位 |\n| --- |\n| 2\\*3 與 \\[備註\\] |\n"
+        let text = MarkdownImporter.attributedString(from: source)
+        XCTAssertEqual(MarkdownExporter.markdown(from: text), source)
+        var cell = ""
+        text.enumerateAttribute(.attachment, in: NSRange(location: 0, length: text.length)) { value, _, _ in
+            if let table = value as? TableAttachment { cell = table.model.rows[1][0] }
+        }
+        XCTAssertEqual(InlineMarkdown.attributedString(from: cell).string, "2*3 與 [備註]")
+    }
+
+    func testTypingInCellUpdatesModelAndBoldToggleWritesMarkdown() {
+        let view = TableCellTextView(isHeader: false)
+        var latest = ""
+        view.onChange = { latest = $0 }
+        view.load("價格")
+        view.setSelectedRange(NSRange(location: 0, length: 2))
+        view.toggle(.meadBold)
+        XCTAssertEqual(latest, "**價格**")
+        XCTAssertEqual(view.string, "價格", "儲存格裡看不到星號")
+        view.toggle(.meadBold)
+        XCTAssertEqual(latest, "價格")
+    }
+}
