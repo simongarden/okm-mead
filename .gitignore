@@ -1,0 +1,8 @@
+.DS_Store
+build/
+DerivedData/
+*.xcodeproj
+xcuserdata/
+.impeccable/review/
+.impeccable/config.local.json
+scripts/release.local

@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-11T23:30:00+08:00",
+  "title": "Design System: OKM Mead",
+  "extensions": {
+    "colorMeta": {
+      "bg": { "role": "neutral", "displayName": "頁面底", "canonical": "#F6F8FB", "darkValue": "#0A1630", "tonalRamp": ["#4E5C7A", "#5F6E8E", "#8391AE", "#B8C1D3", "#D7DDE8", "#EDF0F5", "#F6F8FB"] },
+      "surface": { "role": "neutral", "displayName": "紙面", "canonical": "#FFFFFF", "darkValue": "#132245" },
+      "surface-sunken": { "role": "neutral", "displayName": "凹陷面", "canonical": "#EDF0F5", "darkValue": "#0D1A38", "tonalRamp": ["#4E5C7A", "#5F6E8E", "#8391AE", "#B8C1D3", "#D7DDE8", "#EDF0F5", "#F6F8FB"] },
+      "border": { "role": "neutral", "displayName": "細邊", "canonical": "#D7DDE8", "darkValue": "#24345A", "tonalRamp": ["#4E5C7A", "#5F6E8E", "#8391AE", "#B8C1D3", "#D7DDE8", "#EDF0F5", "#F6F8FB"] },
+      "border-strong": { "role": "neutral", "displayName": "強邊", "canonical": "#8391AE", "darkValue": "#6A7DA3", "tonalRamp": ["#4E5C7A", "#5F6E8E", "#8391AE", "#B8C1D3", "#D7DDE8", "#EDF0F5", "#F6F8FB"] },
+      "text": { "role": "neutral", "displayName": "主要文字", "canonical": "#0A1630", "darkValue": "#E6EBF3" },
+      "text-muted": { "role": "neutral", "displayName": "次要文字", "canonical": "#4E5C7A", "darkValue": "#A9B6CF", "tonalRamp": ["#4E5C7A", "#5F6E8E", "#8391AE", "#B8C1D3", "#D7DDE8", "#EDF0F5", "#F6F8FB"] },
+      "primary": { "role": "primary", "displayName": "品牌海軍藍", "canonical": "#0B2C67", "darkValue": "#9FB3D9", "tonalRamp": ["#050F26", "#071D45", "#0B2C67", "#1A3F82", "#2C559C", "#6A8BC8", "#B9C9E6", "#E3EAF6"] },
+      "primary-hover": { "role": "primary", "displayName": "主要動作 hover（本版尚未取用）", "canonical": "#1A3F82", "darkValue": "#B9C9E6" },
+      "on-primary": { "role": "primary", "displayName": "主色上的文字", "canonical": "#FFFFFF", "darkValue": "#0A1630" },
+      "accent": { "role": "secondary", "displayName": "連結藍", "canonical": "#2F6AAD", "darkValue": "#6FA3E6" },
+      "focus-ring": { "role": "tertiary", "displayName": "焦點水藍", "canonical": "#0F6FA3", "darkValue": "#56B8E6" },
+      "success": { "role": "tertiary", "displayName": "成功（本版尚未取用）", "canonical": "#1E7F7F", "darkValue": "#4EC0BA" },
+      "warning": { "role": "tertiary", "displayName": "提醒橘", "canonical": "#B45309", "darkValue": "#F0A04B" },
+      "danger": { "role": "tertiary", "displayName": "危險（本版尚未取用）", "canonical": "#C0362C", "darkValue": "#F07A6E" },
+      "navy-950": { "role": "neutral", "displayName": "最深海軍藍（紙張陰影）", "canonical": "#050F26" },
+      "navy-700": { "role": "primary", "displayName": "品牌淺底（深色外觀）", "canonical": "#1A3F82" },
+      "navy-600": { "role": "primary", "displayName": "選取底色（深色外觀）", "canonical": "#2C559C" },
+      "navy-200": { "role": "primary", "displayName": "選取底色", "canonical": "#B9C9E6" },
+      "navy-100": { "role": "primary", "displayName": "品牌淺底", "canonical": "#E3EAF6" }
+    },
+    "typographyMeta": {
+      "title": { "displayName": "大標題", "purpose": "文件標題。段前 4pt、段後 14pt。" },
+      "heading": { "displayName": "標題", "purpose": "章節標題。段前 26pt、段後 8pt。" },
+      "subheading": { "displayName": "小標題", "purpose": "小節標題。段前 18pt、段後 6pt。" },
+      "body": { "displayName": "內文", "purpose": "段落、清單、引言。欄寬 616pt，約 41 個中文字。" },
+      "code": { "displayName": "程式碼", "purpose": "程式碼區塊；行內程式碼比所在段落小 1pt。" },
+      "table-cell": { "displayName": "表格文字", "purpose": "表格儲存格；表頭字重 600，數字等寬。" },
+      "margin-tag": { "displayName": "邊界標籤", "purpose": "紙張左邊界的樣式名稱。" }
+    },
+    "shadows": [
+      { "name": "page", "value": "0 2px 14px rgba(5, 15, 38, 0.10)", "purpose": "文件紙張的陰影（淺色外觀）。全畫面唯一自繪的陰影。" },
+      { "name": "page-dark", "value": "0 2px 14px rgba(5, 15, 38, 0.50)", "purpose": "文件紙張的陰影（深色外觀）。" }
+    ],
+    "motion": [
+      { "name": "margin-tag-slide", "value": "240ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "邊界樣式標籤滑到新的段落旁；開啟「減少動態效果」時不播放。" },
+      { "name": "reveal-fade", "value": "150ms ease-out", "purpose": "表格把手與流程圖 hover 底的淡入淡出。" },
+      { "name": "preview-debounce", "value": "280ms", "purpose": "流程圖編輯器停止輸入後才更新預覽的等待時間。" }
+    ],
+    "breakpoints": [
+      { "name": "page-max", "value": "760px", "purpose": "紙張最大寬度；工作區更窄時紙張跟著縮，左右各留 28px。" },
+      { "name": "sidebar", "value": "180px–320px（理想 220px）", "purpose": "大綱側欄可調整的寬度範圍。" }
+    ],
+    "appearance": {
+      "note": "每個語意色都有淺色與深色兩個值；colorMeta 的 darkValue 即深色外觀的值。品牌淺底在深色外觀用 navy-700，選取底色用 navy-600。"
+    }
+  },
+  "components": [
+    {
+      "name": "紙張",
+      "kind": "card",
+      "refersTo": "page",
+      "description": "置中的文件紙張，畫面上唯一有陰影的元素。",
+      "html": "<div class=\"ds-canvas\"><article class=\"ds-page\"><h1 class=\"ds-page-title\">差旅費請款流程說明</h1><p class=\"ds-page-body\">這份文件是示範內容（虛構資料），正式規定請以<a class=\"ds-link\" href=\"#\">公司內部網站</a>公告為準。</p><h2 class=\"ds-page-heading\">適用對象</h2><p class=\"ds-page-body\">所有需要出差並申請費用的同仁。</p></article></div>",
+      "css": ".ds-canvas { background: #F6F8FB; padding: 20px 28px; font-family: -apple-system, 'PingFang TC', sans-serif; } .ds-page { max-width: 760px; margin: 0 auto; padding: 64px 72px 96px; background: #FFFFFF; border-radius: 6px; box-shadow: 0 2px 14px rgba(5, 15, 38, 0.10); color: #0A1630; } .ds-page-title { font-size: 28px; font-weight: 700; line-height: 1.2; margin: 4px 0 14px; } .ds-page-heading { font-size: 21px; font-weight: 600; line-height: 1.2; margin: 26px 0 8px; } .ds-page-body { font-size: 15px; line-height: 1.45; margin: 0 0 10.5px; } .ds-link { color: #2F6AAD; text-decoration: underline; text-decoration-color: rgba(47, 106, 173, 0.45); cursor: pointer; }"
+    },
+    {
+      "name": "邊界樣式標籤",
+      "kind": "custom",
+      "refersTo": "margin-style-tag",
+      "description": "游標所在段落旁的樣式名稱，可點開換樣式；簽名元件。",
+      "html": "<div class=\"ds-tag-row\"><button class=\"ds-margin-tag\" title=\"更改這一段的樣式\">標題<svg width=\"8\" height=\"8\" viewBox=\"0 0 8 8\" aria-hidden=\"true\"><path d=\"M1.5 3l2.5 2.5L6.5 3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button><span class=\"ds-tag-text\">簽核流程</span></div>",
+      "css": ".ds-tag-row { display: flex; align-items: center; gap: 14px; background: #FFFFFF; padding: 16px; font-family: -apple-system, 'PingFang TC', sans-serif; } .ds-margin-tag { display: inline-flex; align-items: center; gap: 3px; height: 18px; padding: 0 5px 0 6px; border: none; border-radius: 4px; background: transparent; color: #4E5C7A; font-size: 11px; font-weight: 500; cursor: pointer; } .ds-margin-tag svg { opacity: 0.7; } .ds-margin-tag:hover, .ds-margin-tag:focus-visible { background: #E3EAF6; color: #0B2C67; outline: none; } .ds-margin-tag:hover svg, .ds-margin-tag:focus-visible svg { opacity: 1; } .ds-tag-text { font-size: 21px; font-weight: 600; line-height: 1.2; color: #0A1630; }"
+    },
+    {
+      "name": "主要按鈕（轉成 PDF）",
+      "kind": "button",
+      "refersTo": "button-export",
+      "description": "工具列最右側唯一填色的按鈕；實際為系統 borderedProminent 樣式加上 primary 色。",
+      "html": "<button class=\"ds-btn-export\">轉成 PDF</button>",
+      "css": ".ds-btn-export { background: #0B2C67; color: #FFFFFF; border: none; border-radius: 6px; padding: 4px 12px; font: 500 13px -apple-system, 'PingFang TC', sans-serif; cursor: pointer; } .ds-btn-export:focus-visible { outline: 2px solid #0F6FA3; outline-offset: 2px; } .ds-btn-export:disabled { opacity: 0.5; cursor: default; }"
+    },
+    {
+      "name": "大綱側欄",
+      "kind": "nav",
+      "refersTo": "outline-row-current",
+      "description": "列出文件標題的側欄；目前所在項目以品牌淺底標示。",
+      "html": "<nav class=\"ds-outline\"><div class=\"ds-outline-section\">大綱</div><a class=\"ds-outline-row ds-outline-l1 ds-outline-current\" href=\"#\">差旅費請款流程說明</a><a class=\"ds-outline-row ds-outline-l2\" href=\"#\">適用對象</a><a class=\"ds-outline-row ds-outline-l2\" href=\"#\">簽核流程</a><a class=\"ds-outline-row ds-outline-l3\" href=\"#\">常見問題</a></nav>",
+      "css": ".ds-outline { width: 220px; padding: 8px; background: #EDF0F5; font: 13px -apple-system, 'PingFang TC', sans-serif; } .ds-outline-section { padding: 4px 8px; font-size: 11px; font-weight: 600; color: #4E5C7A; } .ds-outline-row { display: block; padding: 6px 8px; border-radius: 6px; color: #0A1630; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-outline-l1 { font-weight: 600; } .ds-outline-l2 { padding-left: 20px; } .ds-outline-l3 { padding-left: 32px; color: #4E5C7A; } .ds-outline-current { background: #E3EAF6; color: #0B2C67; font-weight: 600; } .ds-outline-row:focus-visible { outline: 2px solid #0F6FA3; outline-offset: -2px; }"
+    },
+    {
+      "name": "表格",
+      "kind": "custom",
+      "refersTo": "table-header-cell",
+      "description": "文件裡的表格：表頭列為品牌淺底，hover 或輸入時浮出加欄、加列的把手。",
+      "html": "<div class=\"ds-table-wrap\"><div class=\"ds-table-main\"><table class=\"ds-table\"><thead><tr><th>項目</th><th>每日上限</th><th>備註</th></tr></thead><tbody><tr><td>住宿</td><td>3,000</td><td>示範資料</td></tr><tr><td>膳雜</td><td>800</td><td>示範資料</td></tr></tbody></table><button class=\"ds-table-handle ds-table-handle-col\" aria-label=\"新增一欄\"><svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\" aria-hidden=\"true\"><path d=\"M5 1.5v7M1.5 5h7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></button></div><button class=\"ds-table-handle ds-table-handle-row\" aria-label=\"新增一列\"><svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\" aria-hidden=\"true\"><path d=\"M5 1.5v7M1.5 5h7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></button></div>",
+      "css": ".ds-table-wrap { background: #FFFFFF; padding: 8px 0 2px; font-family: -apple-system, 'PingFang TC', sans-serif; } .ds-table-main { display: flex; gap: 4px; align-items: stretch; } .ds-table { flex: 1; border-collapse: separate; border-spacing: 0; border: 1px solid rgba(131, 145, 174, 0.7); border-radius: 6px; overflow: hidden; font-size: 14px; line-height: 1.4; font-variant-numeric: tabular-nums; color: #0A1630; } .ds-table th, .ds-table td { padding: 8px 10px; text-align: left; vertical-align: top; border-right: 1px solid #D7DDE8; border-bottom: 1px solid #D7DDE8; } .ds-table th { background: #E3EAF6; font-weight: 600; } .ds-table td { background: #FFFFFF; font-weight: 400; } .ds-table th:last-child, .ds-table td:last-child { border-right: none; } .ds-table tbody tr:last-child td { border-bottom: none; } .ds-table-handle { display: flex; align-items: center; justify-content: center; border: none; border-radius: 5px; background: #EDF0F5; color: #4E5C7A; cursor: pointer; opacity: 0; transition: opacity 150ms ease-out; } .ds-table-handle-col { width: 16px; } .ds-table-handle-row { height: 16px; width: calc(100% - 20px); margin-top: 4px; } .ds-table-wrap:hover .ds-table-handle, .ds-table-wrap:focus-within .ds-table-handle { opacity: 1; } .ds-table-handle:focus-visible { outline: 2px solid #0F6FA3; outline-offset: 1px; }"
+    },
+    {
+      "name": "清單與待辦方框",
+      "kind": "custom",
+      "refersTo": "checkbox-checked",
+      "description": "清單記號與待辦方框是畫在文字之外的裝飾；勾選後填 primary。",
+      "html": "<ul class=\"ds-list\"><li class=\"ds-list-bullet\">出差申請單（主管已簽核）</li><li class=\"ds-list-check\"><span class=\"ds-check ds-check-on\" role=\"checkbox\" aria-checked=\"true\" tabindex=\"0\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" aria-hidden=\"true\"><path d=\"M3.5 7.5L6 10l4.5-5.5\" fill=\"none\" stroke=\"#FFFFFF\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span>確認單據齊全</li><li class=\"ds-list-check\"><span class=\"ds-check\" role=\"checkbox\" aria-checked=\"false\" tabindex=\"0\"></span>送出請款單</li></ul>",
+      "css": ".ds-list { list-style: none; margin: 0; padding: 12px 16px 12px 24px; background: #FFFFFF; color: #0A1630; font: 15px/1.45 -apple-system, 'PingFang TC', sans-serif; } .ds-list li { position: relative; margin-bottom: 4px; } .ds-list-bullet::before { content: '•'; position: absolute; left: -16px; color: #4E5C7A; } .ds-check { position: absolute; left: -22px; top: 4px; width: 14px; height: 14px; border-radius: 3.5px; border: 1.5px solid #8391AE; box-sizing: border-box; cursor: pointer; } .ds-check-on { background: #0B2C67; border: none; } .ds-check:focus-visible { outline: 2px solid #0F6FA3; outline-offset: 2px; }"
+    },
+    {
+      "name": "引言與程式碼區塊",
+      "kind": "custom",
+      "refersTo": "code-block",
+      "description": "引言以 1px 細線與次要文字色表示；程式碼區塊為凹陷面底色、6px 圓角。",
+      "html": "<div class=\"ds-blocks\"><blockquote class=\"ds-quote\">單據遺失怎麼辦？請填寫「單據遺失切結書」，並由主管簽名。</blockquote><pre class=\"ds-code\">total = lodging + meals\nprint(total)</pre><p class=\"ds-inline\">欄位名稱為 <code class=\"ds-inline-code\">amount</code>。</p></div>",
+      "css": ".ds-blocks { background: #FFFFFF; padding: 16px; color: #0A1630; font: 15px/1.45 -apple-system, 'PingFang TC', sans-serif; } .ds-quote { position: relative; margin: 0 0 12px; padding-left: 24px; color: #4E5C7A; } .ds-quote::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 1px; background: #8391AE; } .ds-code { margin: 0 0 12px; padding: 0 14px; background: #EDF0F5; border-radius: 6px; font: 13px/1.3 'SF Mono', Menlo, monospace; white-space: pre-wrap; } .ds-inline { margin: 0; } .ds-inline-code { background: #EDF0F5; font: 14px 'SF Mono', Menlo, monospace; }"
+    },
+    {
+      "name": "區塊選取外框",
+      "kind": "custom",
+      "refersTo": "focus-ring",
+      "description": "表格或流程圖被選取時，在區塊外 3px 處顯示 2px 的 focus-ring 外框。",
+      "html": "<div class=\"ds-ring-stage\"><div class=\"ds-ring-block\" tabindex=\"0\">流程圖</div></div>",
+      "css": ".ds-ring-stage { background: #FFFFFF; padding: 20px; font: 15px -apple-system, 'PingFang TC', sans-serif; } .ds-ring-block { padding: 28px 0; text-align: center; border-radius: 6px; color: #4E5C7A; outline: 2px solid transparent; outline-offset: 1px; transition: background 150ms ease-out; cursor: default; } .ds-ring-block:hover { background: rgba(237, 240, 245, 0.6); } .ds-ring-block:focus, .ds-ring-block:focus-visible { outline-color: #0F6FA3; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "桌上的一張紙",
+    "overview": "打開視窗看到的是一張置中的紙和一個游標。視窗底是帶一點藍的淺灰（`bg`），紙是 `surface`，四周一圈柔和的陰影把紙從桌面托起來；除此之外畫面上沒有其他有重量的東西。左邊的大綱側欄沉在 `surface-sunken` 裡，頂部是 macOS 原生的統一工具列。整個介面的品牌感只來自 OKM 共用色票的海軍藍色階，不靠插圖、漸層或自製控制項。\n\n密度偏鬆：內文 15pt、行高 1.45、欄寬 616pt（約 41 個中文字）。標題不換顏色，只靠字級與字重分層。Markdown 的語法符號從不出現在畫面上：清單記號、待辦方框、引言細線、程式碼底色都是畫在文字之外的裝飾，選不到、也複製不到。\n\n這個視覺世界是 OKM 系列 App 共用的，本 App 是新套用的一員；因此所有顏色都必須能在色票裡找到名字。",
+    "keyCharacteristics": [
+      "一張 760pt 寬的紙置中，是畫面上唯一有陰影的元素。",
+      "色彩全部取自 OKM 色票的語意色；海軍藍淺底只標示「目前所在」與表頭。",
+      "系統字體（SF＋苹方），標題靠字重與字級分層，不靠顏色。",
+      "控制項一律是 macOS 原生元件；區塊上的操作把手平常隱藏，需要時才浮現。",
+      "淺色與深色外觀各有一組對應值，由同一個語意名稱切換。",
+      "簽名手法：紙張左邊界的樣式標籤，跟著游標滑到目前段落旁。"
+    ],
+    "rules": [
+      { "name": "色票唯一來源規則", "body": "Swift 程式裡不寫色碼，顏色一律以 `OKMPalette` 的名稱取用；深淺外觀由語意色自己切換，不在畫面層判斷。唯一的例外是 `Resources/export.css`（PDF 沒有深色外觀），它重複了一份淺色值，改色票時要一起更新。", "section": "colors" },
+      { "name": "淺底只標示所在規則", "body": "`navy-100` 淺底不拿來裝飾版面；它出現就代表「你在這裡」（目前大綱項目、滑鼠所在的樣式標籤）或「這一列是表頭」。", "section": "colors" },
+      { "name": "連結獨佔亮藍規則", "body": "紙上唯一比海軍藍更亮的藍是連結。標題、強調、清單記號都不使用 `accent`。", "section": "colors" },
+      { "name": "字重分層規則", "body": "標題與內文同色（`text`），只用字級與字重區分。不為標題另外上色、加底線或加裝飾線。", "section": "typography" },
+      { "name": "中文粗斜規則", "body": "內文的粗體直接用 bold（700），因為中文字的 semibold 與 regular 差異太小；斜體用 0.2 的斜切變形產生，中英文斜度才一致。", "section": "typography" },
+      { "name": "上寬下窄規則", "body": "標題上方的留白明顯大於下方（26／8、18／6），讓標題貼著它帶領的內容。連續的清單、引言或程式碼段落之間不另外留段距，整組結束後才留 12pt。", "section": "typography" },
+      { "name": "唯一陰影規則", "body": "目前只有紙張有陰影。表格、流程圖、程式碼區塊都平貼在紙上，靠邊框或底色區分，不另外浮起。", "section": "elevation" }
+    ],
+    "dos": [
+      "Do 以 `OKMPalette` 的語意名稱取用顏色；需要淺底或選取色時用既有的 `Theme.tint`、`Theme.selection`。",
+      "Do 讓新的文件區塊沿用 6pt 圓角、1pt 線條，平貼在紙上。",
+      "Do 用字級與字重（28／21／17／15，700／600／400）建立層次，標題維持 `text` 色。",
+      "Do 把區塊上的操作把手做成「hover、取得焦點或被選取時才出現」，並用 0.15 秒 ease-out 淡入；只用鍵盤的人也要看得到。",
+      "Do 優先使用 macOS 原生控制項（工具列、選單、彈出視窗、表單、側欄清單）與 SF Symbols。",
+      "Do 兩種外觀都檢查；深色外觀的值由語意色提供，不另外調。",
+      "Do 改動色票時同步更新 `Resources/export.css` 的淺色值。",
+      "Do 在位移動畫上尊重「減少動態效果」設定。"
+    ],
+    "donts": [
+      "Don't 在 Swift 程式裡寫色碼，或加入色票以外的顏色。",
+      "Don't 讓任何 Markdown 或 Mermaid 符號（`#`、`*`、`|`）出現在介面上；清單記號、方框、引言線都是畫出來的裝飾，不是文字。",
+      "Don't 用 `accent` 為標題、強調文字或裝飾上色；紙上的亮藍只屬於連結。",
+      "Don't 把品牌淺底當成版面裝飾；它只標示目前所在與表頭。",
+      "Don't 在視窗裡放第二顆填色的主要按鈕；「轉成 PDF」是唯一的一顆。",
+      "Don't 提供存不進 `.md` 的格式（字型、文字顏色、任意排版）的控制項。"
+    ]
+  }
+}

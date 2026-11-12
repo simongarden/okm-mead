@@ -1,0 +1,100 @@
+# XcodeGen 設定：執行 `xcodegen generate` 產生 OKM-Mead.xcodeproj（不提交到 git）。
+name: OKM-Mead
+options:
+  bundleIdPrefix: com.okmaster
+  deploymentTarget:
+    macOS: "15.0"
+  developmentLanguage: zh-Hant
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    MARKETING_VERSION: "2.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_HARDENED_RUNTIME: YES
+    ONLY_ACTIVE_ARCH[config=Debug]: YES
+
+packages:
+  swift-markdown:
+    url: https://github.com/swiftlang/swift-markdown
+    from: 0.6.0
+
+targets:
+  OKM-Mead:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources
+      - path: Resources
+      # 「授權與原始碼」視窗會讀這兩份文件。
+      - path: LICENSE
+        buildPhase: resources
+      - path: TRADEMARKS.md
+        buildPhase: resources
+    dependencies:
+      - package: swift-markdown
+        product: Markdown
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.okmaster.OKMMead
+        # 命名規則見 okm-mead/docs/BRANDING.md：bundle 與執行檔用 OKM-Mead，模組名不能有符號。
+        PRODUCT_NAME: OKM-Mead
+        PRODUCT_MODULE_NAME: OKMMead
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: "-"
+        ENABLE_APP_SANDBOX: NO
+        GENERATE_INFOPLIST_FILE: YES
+    info:
+      path: Resources/Info.plist
+      properties:
+        CFBundleDisplayName: OKM Mead
+        CFBundleName: OKM-Mead
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.productivity
+        NSHumanReadableCopyright: "Copyright © 2026 OKMaster Inc."
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Markdown 文件
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Default
+            LSItemContentTypes:
+              - net.daringfireball.markdown
+        UTImportedTypeDeclarations:
+          - UTTypeIdentifier: net.daringfireball.markdown
+            UTTypeDescription: Markdown 文件
+            UTTypeConformsTo:
+              - public.plain-text
+            UTTypeTagSpecification:
+              public.filename-extension:
+                - md
+                - markdown
+
+  OKM-MeadTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: OKM-Mead
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        BUNDLE_LOADER: $(TEST_HOST)
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/OKM-Mead.app/Contents/MacOS/OKM-Mead
+
+schemes:
+  OKM-Mead:
+    build:
+      targets:
+        OKM-Mead: all
+        OKM-MeadTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - OKM-MeadTests
